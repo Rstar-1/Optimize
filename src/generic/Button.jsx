@@ -17,6 +17,8 @@ const Button = ({
         return "px-16 py-5 mini-text rounded-5 border-0";
       case "v1":
         return "px-20 py-9 headpara-text rounded-5 border-0";
+      case "v2":
+        return "px-20 py-8 mini-text rounded-5 border-0";
       default:
         return "w-full py-7 small-text rounded-5 border-0";
     }

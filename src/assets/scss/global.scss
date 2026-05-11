@@ -35,8 +35,8 @@
     margin-bottom: 0% !important;
   }
 }
-@media (max-width:640px) {
-  .sm-col-reverse{
+@media (max-width: 640px) {
+  .sm-col-reverse {
     display: flex !important;
     flex-direction: column-reverse !important;
   }
@@ -44,11 +44,12 @@
 .minus-right-1 {
   right: -1px !important;
 }
-.search-img{
+.search-img {
   height: 50px !important;
 }
 .bg_hero {
-    background: url('https://raw.githubusercontent.com/Rstar-1/generic/refs/heads/main/mayur/img/side2.png'), 
+  background:
+    url("https://raw.githubusercontent.com/Rstar-1/generic/refs/heads/main/mayur/img/side2.png"),
     radial-gradient(50% 50% at center top, #e9e7fd -50%, #e9e7fd5c) !important;
 }
 /* ======================= End-Generic ======================= */

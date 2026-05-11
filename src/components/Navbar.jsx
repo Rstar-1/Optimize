@@ -1,182 +1,196 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Container from "../generic/Container";
+import Button from "../generic/Button";
+
+const ProductsMenu = ({ menuItems }) => (
+  <>
+    <div className="bg-forth px-15 pt-15 pb-40">
+      <img
+        src="https://www.zegocloud.com/_nuxt/img/nav_pic_pricing@2x.549fcd3.jpg"
+        alt="Products"
+        className="flex w-full h-200 object-cover rounded-5"
+      />
+      <h4 className="mid-text text-dark font-500 pt-20">Success Stories</h4>
+      <p className="small-text text-gray font-400 mt-6">
+        See what customers are building with ZEGOCLOUD - The Trusted Platform.
+      </p>
+      <p className="small-text text-secondary font-400 mt-6 cursor-pointer">
+        Learn More
+      </p>
+    </div>
+    <div className="px-15 pt-15 pb-40">
+      <p className="text-gray small-text font-500">Get Started</p>
+      <div className="grid grid-cols-1 gap-12 mt-12">
+        {menuItems.map((item, index) => (
+          <div
+            key={index}
+            className="py-10 px-15 cursor-pointer hover:bg-forth"
+            style={{ backgroundColor: index === 0 ? "#fafafa" : "transparent" }}
+          >
+            <p className="text-dark small-text font-500">{item}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </>
+);
+
+const IndustryMenu = ({ menuItems }) => (
+  <>
+    <div className="bg-forth px-15 pt-15 pb-40">
+      <img
+        src="https://www.zegocloud.com/_nuxt/img/nav_pic_pricing@2x.549fcd3.jpg"
+        alt="Products"
+        className="flex w-full h-200 object-cover rounded-5"
+      />
+      <h4 className="mid-text text-dark font-500 pt-20">Success Stories</h4>
+      <p className="small-text text-gray font-400 mt-6">
+        See what customers are building with ZEGOCLOUD - The Trusted Platform.
+      </p>
+      <p className="small-text text-secondary font-400 mt-6 cursor-pointer">
+        Learn More
+      </p>
+    </div>
+    <div className="px-15 pt-15 pb-40">
+      <p className="text-gray small-text font-500">Entertainment</p>
+      <div className="grid grid-cols-1 gap-12 mt-12">
+        {["Social Games", "Live Streaming", "Online Karaoke"].map((item) => (
+          <div key={item} className="py-10 px-15 cursor-pointer hover:bg-forth">
+            <p className="text-dark small-text font-500">{item}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div className="px-15 pt-15 pb-40">
+      <p className="text-gray small-text font-500">Education</p>
+      <div className="grid grid-cols-1 gap-12 mt-12">
+        {["Virtual Classroom", "1v1 Tutoring", "LMS Integration"].map(
+          (item) => (
+            <div
+              key={item}
+              className="py-10 px-15 cursor-pointer hover:bg-forth"
+            >
+              <p className="text-dark small-text font-500">{item}</p>
+            </div>
+          ),
+        )}
+      </div>
+    </div>
+  </>
+);
+
+const MegaMenuContent = React.memo(({ label, menuItems }) => {
+  switch (label) {
+    case "Products":
+      return <ProductsMenu menuItems={menuItems} />;
+    case "Industry":
+      return <IndustryMenu menuItems={menuItems} />;
+    default:
+      return null;
+  }
+});
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [sidebarshow, setsidebarshow] = React.useState(false);
+  const [activeMenu, setActiveMenu] = React.useState(null);
+
+  const menuItems = [
+    "Video Call",
+    "Audio Call",
+    "Screen Share",
+    "Conference",
+    "Recording",
+  ];
+
   const NavData = [
     { href: "/home", label: "Home" },
     { href: "/about-us", label: "About Us" },
-    { href: "/product", label: "Products" },
+    {
+      label: "Products",
+      hasMegaMenu: true,
+      width: "650px",
+      cols: "grid-cols-2",
+    },
     { href: "/category", label: "Category" },
+    {
+      label: "Industry",
+      hasMegaMenu: true,
+      width: "960px",
+      cols: "grid-cols-3",
+    },
     { href: "/connect", label: "Connect" },
   ];
 
   return (
-    <Container version="v0" className="bg-white relative navbar">
-      <div
-        className={
-          sidebarshow === true
-            ? "fixed h-100 hidden md-block sm-block z-99 navview"
-            : "fixed h-100 hidden md-block sm-block z-99 navhide"
-        }
-      >
-        <div className="bg-white b-shadow w-80 h-100 absolute right-0 top-0">
-          <div className="bg-secondary p-16">
-            <div className="flex items-center justify-between gap-4">
-              <p className="headpara-text text-white">Mayur Computers</p>
-              <div onClick={() => setsidebarshow(false)}>
-                <svg
-                  viewBox="0 0 24 24"
-                  width="24"
-                  height="24"
-                  stroke="var(--white)"
-                  strokeWidth="2"
-                  fill="none"
-                  className="flex cursor-pointer"
+    <div className="navbar bg-white">
+      <Container version="v1">
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center gap-8">
+            <NavLink to="/home">
+              <img
+                src="https://www.zegocloud.com/_nuxt/img/nav_zegocloud_logo@2x.8c52173.png"
+                className="object-contain flex"
+                style={{ height: "65px", width: "150px" }}
+                alt="Logo"
+              />
+            </NavLink>
+
+            <div className="flex sm-hidden items-center ml-45">
+              {NavData?.map((item, i) => (
+                <div
+                  key={i}
+                  className="relative flex items-center"
+                  onMouseEnter={() =>
+                    item?.hasMegaMenu && setActiveMenu(item?.label)
+                  }
+                  onMouseLeave={() => setActiveMenu(null)}
+                  style={{ height: "65px" }}
                 >
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </div>
-            </div>
-          </div>
-          <div className="mt-16">
-            {NavData.map((item) => (
-              <>
-                <div className="px-20 py-18 bordb" key={item?.label}>
-                  <NavLink
-                    to={item?.href}
-                    activeClass="active"
-                    className="text-gray flex items-center gap-8 cursor-pointer"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      width="24"
-                      height="24"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      fill="none"
-                      className="flex"
-                    >
-                      <polyline points="15 10 20 15 15 20"></polyline>
-                      <path d="M4 4v7a4 4 0 0 0 4 4h12"></path>
-                    </svg>
-                    <p
-                      className="my-0 ml-6 headpara-text font-500"
-                      onClick={() => setsidebarshow(false)}
+                  {!item?.hasMegaMenu ? (
+                    <NavLink
+                      to={item?.href}
+                      className="small-text text-dark font-500 px-20 py-6 cursor-pointer"
                     >
                       {item?.label}
+                    </NavLink>
+                  ) : (
+                    <p className="small-text text-dark font-500 px-20 py-6 cursor-pointer">
+                      {item?.label}
                     </p>
-                  </NavLink>
+                  )}
+
+                  {item?.hasMegaMenu && activeMenu === item?.label && (
+                    <div
+                      className="absolute z-50 bg-white"
+                      style={{
+                        top: "100%",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                      }}
+                    >
+                      <div
+                        className={`grid ${item?.cols} items-start`}
+                        style={{ width: item?.width }}
+                      >
+                        <MegaMenuContent
+                          label={item?.label}
+                          menuItems={menuItems}
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </>
-            ))}
+              ))}
+            </div>
+          </div>
+
+          <div className="flex items-center gap-8">
+            <Button text="Talk to Us" version="v2" bg="warning" />
           </div>
         </div>
-      </div>
-      <div className="bg-secondary flex sm-block justify-between items-center p-20">
-        <div className="flex sm-hidden gap-8 items-center">
-          <svg
-            viewBox="0 0 24 24"
-            width="16"
-            height="16"
-            stroke="var(--white)"
-            strokeWidth="2"
-            fill="none"
-            className="flex text-white"
-          >
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-          </svg>
-          <p className="text-white small-text flex items-center gap-8">
-            We Will Grow Your Small Business To The Next Level
-          </p>
-        </div>
-        <div className="flex sm-block gap-8 items-center">
-          <a
-            href="tel:+919867264193"
-            className="text-white para-text mr-12 sm-mr-1 flex items-center gap-8"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              width="20"
-              height="20"
-              stroke="var(--white)"
-              strokeWidth="2"
-              fill="none"
-              className="flex text-white"
-            >
-              <path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-            </svg>
-            +91-9867264193
-          </a>
-          <p className="text-white para-text sm-hidden">|</p>
-          <a
-            href="mailto:mayur.computers2012@gmail.com"
-            className="text-white para-text ml-12 sm-ml-1 sm-mt-12 flex items-center gap-8"
-            aria-label="Send email to mayur.computers2012@gmail.com"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              width="20"
-              height="20"
-              stroke="var(--white)"
-              strokeWidth="2"
-              fill="none"
-              className="flex text-white"
-            >
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
-            mayur.computers2012@gmail.com
-          </a>
-        </div>
-      </div>
-      <div className="flex items-center justify-between py-12 px-20">
-        <NavLink to="/home">
-          <img
-            src="https://image1.jdomni.in/storeLogo/11012020/86/08/D1/E224BC336DAF85A7C455301446_1578736750581.png?output-format=webp"
-            className="object-cover flex"
-            style={{ height: "50px" }}
-          />
-        </NavLink>
-        <div className="flex sm-hidden items-center gap-8">
-          {NavData.map((item) => (
-            <NavLink
-              key={item.label}
-              to={item.href}
-              activeClass="active"
-              className="para-text text-gray font-500 mx-14 cursor-pointer"
-            >
-              {item.label}
-            </NavLink>
-          ))}
-          <a href="tel:+919867264193">
-            <button className="cursor-pointer px-25 py-11 para-text font-400 text-white bg-warning border-0 rounded-5 ml-12">
-              Get A Quote
-            </button>
-          </a>
-        </div>
-        <div className="hidden sm-flex gap-12">
-          <svg
-            viewBox="0 0 26 26"
-            width="36"
-            height="36"
-            stroke="var(--gray)"
-            strokeWidth="2"
-            fill="none"
-            className="cursor-pointer flex"
-            onClick={() => setsidebarshow(true)}
-          >
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 };
 

@@ -7,6 +7,7 @@ import Loader from "../components/Loader"
 
 // 📦 Lazy Pages
 const Home = lazy(() => import("../pages/home/Home"))
+const About = lazy(() => import("../pages/about/About"))
 
 // 🔐 Protected Route (simple version)
 const ProtectedRoute = ({ children }) => {
@@ -24,6 +25,7 @@ function AppRoutes() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Navigate to="/home" replace />} />
           <Route path="home" element={<Home />} />
+          <Route path="about-us" element={<About />} />
         </Route>
 
         {/* <Route path="/login" element={<Login />} />

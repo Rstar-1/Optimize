@@ -2,9 +2,9 @@
 /* ======================= Start-Color ======================= */
 :root {
   --primary: #7a1be7 !important;
-  --secondary: rgb(108, 99, 255) !important;
+  --secondary: #05f !important;
   --tertiary: #f5f5f5 !important;
-  --forth: #f0f2ee !important;
+  --forth: #f7fbff !important;
   --success: #1cb012bc !important;
   --successtext: #25771fbc !important;
   --warning: #fb5711 !important;
@@ -12,7 +12,7 @@
   --danger: #c21b1bdb !important;
   --info: #2378bdb7 !important;
   --white: #fff !important;
-  --dark: #000 !important;
+  --dark: #0f1623 !important;
   --gray: #585a63c0 !important;
 }
 .dark-mode {
@@ -224,7 +224,6 @@ input,
     font-size: 36px !important;
     margin: 0px !important;
     line-height: 56px !important;
-    font-weight: 500 !important;
   }
 }
 .head-text {
@@ -235,58 +234,52 @@ input,
     font-size: 24px !important;
     margin: 0px !important;
     line-height: 36px !important;
-    font-weight: 500 !important;
   }
 }
 .title-text {
   font-size: 24px !important;
   margin: 0px !important;
-  font-weight: 500 !important;
   @media (max-width: 640px) {
     font-size: 20px !important;
     margin: 0px !important;
   }
 }
 .mid-text {
-  font-size: 16px !important;
+  font-size: 18px !important;
   margin: 0px !important;
-  font-weight: 500 !important;
+}
+.headmini-text {
+  font-size: 14px !important;
+  margin: 0px !important;
 }
 .headpara-text {
   font-size: 20px !important;
   line-height: 30px !important;
-  font-weight: 400 !important;
    @media (max-width: 640px) {
     font-size: 20px !important;
     line-height: 28px !important;
-    font-weight: 500 !important;
   }
 }
 .midpara-text {
   font-size: 18px !important;
-  font-weight: 400 !important;
    @media (max-width: 640px) {
     font-size: 15px !important;
     line-height: 21px !important;
-    font-weight: 500 !important;
   }
 }
 .para-text {
   font-size: 16px !important;
   line-height: 22px !important;
-  font-weight: 400 !important;
   @media (max-width: 640px) {
     font-size: 16px !important;
   }
 }
 .small-text {
-  font-size: 13px !important;
-  line-height: 18px !important;
-  font-weight: 400 !important;
+  font-size: 15px !important;
+  line-height: 26px !important;
 }
 .mini-text {
-  font-size: 11px !important;
-  line-height: 18px !important;
-  font-weight: 400 !important;
+  font-size: 13px !important;
+  line-height: 16px !important;
 }
 /* ======================= End-Fontsize ======================= */
