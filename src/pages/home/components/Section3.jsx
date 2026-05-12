@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Container from "../../../generic/Container";
 import Button from "../../../generic/Button";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Section3 = () => {
+  const sectionRef = useRef(null);
+  const imgRef = useRef(null);
+  const contentRef = useRef(null);
   
   const stats = [
     {
@@ -19,10 +26,42 @@ const Section3 = () => {
     },
   ];
 
+  useEffect(() => {
+    const el = sectionRef.current;
+
+    // Image slide from left
+    gsap.fromTo(imgRef.current,
+      { x: -50, opacity: 0 },
+      { x: 0, opacity: 1, duration: 1, ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        }
+      }
+    );
+
+    // Content slide from right
+    gsap.fromTo(contentRef.current,
+      { x: 50, opacity: 0 },
+      { x: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.2,
+        scrollTrigger: {
+          trigger: el,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        }
+      }
+    );
+
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  }, []);
+
   return (
     <Container version="v1" className="py-80">
-      <div className="flex items-center gap-12 w-full">
-        <div className="w-50 pr-10">
+      <div className="flex items-center gap-12 w-full" ref={sectionRef}>
+        <div className="w-50 pr-10" ref={imgRef}>
           <img
             src="https://html.ditsolution.net/industry/indastre1/assets/images/about/about-thumb.png"
             alt="about company"
@@ -30,7 +69,7 @@ const Section3 = () => {
           />
         </div>
 
-        <div className="w-50 pl-15">
+        <div className="w-50 pl-15" ref={contentRef}>
           <div className="flex items-center gap-9">
             <span
               style={{

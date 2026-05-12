@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Container from "../../../generic/Container";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Section4 = () => {
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const cardsRef = useRef([]);
+
   const services = [
     {
       id: 1,
@@ -33,6 +41,38 @@ const Section4 = () => {
     },
   ];
 
+  useEffect(() => {
+    const el = sectionRef.current;
+
+    // Header slide up fade
+    gsap.fromTo(headerRef.current.children,
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        }
+      }
+    );
+
+    // Cards scale up bounce
+    gsap.fromTo(cardsRef.current,
+      { scale: 0.85, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.8, stagger: 0.1, ease: "back.out(1.5)", delay: 0.2,
+        scrollTrigger: {
+          trigger: el,
+          start: "top 70%",
+          toggleActions: "play none none reverse",
+        }
+      }
+    );
+
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  }, []);
+
   return (
     <Container
       version="v1"
@@ -43,17 +83,23 @@ const Section4 = () => {
         backgroundSize: "cover",
       }}
     >
-      <div className="">
-        <p className="headpara-text text-warning font-500 text-center capitalize">
-          What We Offer
-        </p>
-        <h2 className="head-text text-dark font-600 capitalize text-center pt-10">
-          Service Expertise Your Business
-        </h2>
+      <div className="" ref={sectionRef}>
+        <div ref={headerRef}>
+          <p className="headpara-text text-warning font-500 text-center capitalize">
+            What We Offer
+          </p>
+          <h2 className="head-text text-dark font-600 capitalize text-center pt-10">
+            Service Expertise Your Business
+          </h2>
+        </div>
 
         <div className="grid-cols-4 gap-12 mt-50">
           {services?.map((service, i) => (
-            <div key={i} className="bg-white p-26 rounded-5 mx-10">
+            <div 
+              key={i} 
+              ref={(el) => (cardsRef.current[i] = el)}
+              className="bg-white p-26 rounded-5 mx-10"
+            >
               <img
                 src={service?.icon}
                 alt="service icon"

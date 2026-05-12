@@ -1,28 +1,59 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Container from "../../../generic/Container";
 import Button from "../../../generic/Button";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Banner = () => {
+  const containerRef = useRef(null);
+  const bgRef = useRef(null);
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    
+    // Blur-in effect for background image
+    gsap.fromTo(bgRef.current, 
+      { filter: "blur(10px)", scale: 1.05, opacity: 0 },
+      { filter: "blur(0px)", scale: 1, opacity: 1, duration: 1.2, ease: "power2.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        }
+      }
+    );
+
+    // Slide-right effect for the content
+    gsap.fromTo(contentRef.current,
+      { x: -50, opacity: 0 },
+      { x: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.2,
+        scrollTrigger: {
+          trigger: el,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        }
+      }
+    );
+
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  }, []);
+
   return (
-    <div className="relative">
-      {/* <img
-            src="https://chimerical-gumption-fb54a4.netlify.app/static/media/banner.2d5ea0077210e67e5d6a.png"
-            alt="Banner"
-            className="w-full object-cover h-600 bg-forth flex"
-          /> */}
+    <div className="relative" ref={containerRef}>
       <img
+        ref={bgRef}
         src="https://html.ditsolution.net/industry/indastre8/assets/images/slider/slider-bg.png"
         alt="Banner"
         className="w-full object-cover h-650 bg-forth flex"
       />
-      {/* <img
-        src="https://html.ditsolution.net/industry/indastre1/assets/images/slider/banner.jpg"
-        alt="Banner"
-        className="w-full object-cover h-650 bg-forth flex"
-      /> */}
       <div className="absolute top-0 left-0 w-full">
         <Container version="v1" className="h-650 flex items-center">
-          <div className="w-50">
+          <div ref={contentRef} className="w-50">
             <div className="flex items-center gap-9">
               <span className="dot bg-warning"></span>
               <p className="para-text text-white uppercase">

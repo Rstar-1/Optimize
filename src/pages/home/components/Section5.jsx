@@ -1,5 +1,9 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Container from "../../../generic/Container";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const BLOG_DATA = [
   {
@@ -28,9 +32,9 @@ const BLOG_DATA = [
   },
 ];
 
-const BlogCard = memo(({ blog }) => {
+const BlogCard = memo(({ blog, cardRef }) => {
   return (
-    <div className="bg-white rounded-5 mx-5 overflow-hidden">
+    <div ref={cardRef} className="bg-white rounded-5 mx-5 overflow-hidden">
       <div className="relative">
         <img
           src={blog?.image}
@@ -62,6 +66,42 @@ const BlogCard = memo(({ blog }) => {
 });
 
 const Section5 = memo(() => {
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const cardsRef = useRef([]);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+
+    // Header slide up fade
+    gsap.fromTo(headerRef.current.children,
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        }
+      }
+    );
+
+    // Cards slide up fade
+    gsap.fromTo(cardsRef.current,
+      { y: 60, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.2,
+        scrollTrigger: {
+          trigger: el,
+          start: "top 70%",
+          toggleActions: "play none none reverse",
+        }
+      }
+    );
+
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  }, []);
+
   return (
     <Container
       version="v1"
@@ -72,17 +112,23 @@ const Section5 = memo(() => {
         backgroundSize: "cover",
       }}
     >
-      <div className="">
-        <p className="headpara-text text-warning font-500 text-center">
-          Latest News
-        </p>
-        <h2 className="head-text text-dark font-600 capitalize text-center pt-10">
-          Read Our Latest Blog Posts
-        </h2>
+      <div className="" ref={sectionRef}>
+        <div ref={headerRef}>
+          <p className="headpara-text text-warning font-500 text-center">
+            Latest News
+          </p>
+          <h2 className="head-text text-dark font-600 capitalize text-center pt-10">
+            Read Our Latest Blog Posts
+          </h2>
+        </div>
 
         <div className="grid-cols-3 gap-12 mt-40">
-          {BLOG_DATA?.map((blog) => (
-            <BlogCard key={blog.id} blog={blog} />
+          {BLOG_DATA?.map((blog, i) => (
+            <BlogCard 
+              key={blog.id} 
+              blog={blog} 
+              cardRef={(el) => (cardsRef.current[i] = el)} 
+            />
           ))}
         </div>
       </div>
