@@ -1,38 +1,35 @@
-import axios from 'axios';
-import { config } from '../config/env';
+import axios from "axios";
+import { config } from "../config/env";
 
 const axiosInstance = axios.create({
-  baseURL: config.apiUrl,
-  timeout: 10000
-})
+  baseURL: config.apiUrl, // http://localhost:3000/api
+  timeout: 10000,
+});
 
-// ✅ Attach token
-axiosInstance.interceptors.request.use((config) => {
+// ================= TOKEN ATTACH =================
+axiosInstance.interceptors.request.use((req) => {
   try {
-    const data = JSON.parse(localStorage.getItem('appState'))
-    const token = data?.auth?.token
+    const data = JSON.parse(localStorage.getItem("appState"));
+    const token = data?.auth?.token;
 
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+      req.headers.Authorization = `Bearer ${token}`;
     }
-  } catch { }
+  } catch (err) {}
 
-  return config
-})
+  return req;
+});
 
-// ✅ Global error handling
+// ================= GLOBAL ERROR =================
 axiosInstance.interceptors.response.use(
   (res) => res,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('appState')
-
-      // 🔥 better than window.location
-      window.location.replace('/login')
+      localStorage.removeItem("appState");
+      window.location.href = "/login";
     }
-
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
-)
+);
 
-export default axiosInstance
+export default axiosInstance;

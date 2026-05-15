@@ -1,22 +1,12 @@
-import React from "react"
-import { BrowserRouter } from "react-router-dom"
-import { Provider } from "react-redux"
-import { QueryClientProvider } from "@tanstack/react-query"
-
-import { store } from "./app/store"
-import { queryClient } from "./app/queryClient"
-import AppRoutes from "./routes/AppRoutes"
+import { BrowserRouter } from 'react-router-dom';
+import { AppRoutes } from './routes';
 
 function App() {
   return (
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </QueryClientProvider>
-    </Provider>
-  )
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
