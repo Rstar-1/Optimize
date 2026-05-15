@@ -1,13 +1,14 @@
-const ENV = import.meta.env
+const ENV = import.meta.env;
 
 export const config = {
-  apiUrl: ENV.VITE_API_URL,
-  appName: ENV.VITE_APP_NAME,
+  apiUrl: ENV.VITE_API_URL || "http://localhost:3000/api",
 
-  env: ENV.VITE_APP_ENV,
+  appName: ENV.VITE_APP_NAME || "MyApp",
 
-  isDev: ENV.VITE_APP_ENV === 'development',
-  isProd: ENV.VITE_APP_ENV === 'production',
+  env: ENV.VITE_APP_ENV || "development",
 
-  enableLogs: ENV.VITE_ENABLE_LOGS === 'true'
-}
+  isDev: (ENV.VITE_APP_ENV || "development") === "development",
+  isProd: ENV.VITE_APP_ENV === "production",
+
+  enableLogs: ENV.VITE_ENABLE_LOGS === "true",
+};

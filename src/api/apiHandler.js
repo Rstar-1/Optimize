@@ -1,17 +1,17 @@
 export const handleRequest = async (apiCall) => {
   try {
-    const res = await apiCall()
-    return res.data
+    const res = await apiCall();
+    return res.data;
   } catch (error) {
     const err = {
       message:
         error.response?.data?.message ||
         error.message ||
-        'Something went wrong',
-      status: error.response?.status || 500
-    }
+        "Something went wrong",
+      status: error.response?.status || 500,
+    };
 
-    console.error('API Error:', err)
-    throw err
+    console.error("API Error:", err);
+    throw err;
   }
-}
+};
