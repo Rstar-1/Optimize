@@ -1,0 +1,45 @@
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-display;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: clamp(3rem, 10vw, 8rem);
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+p {
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  color: $color-gray-light;
+  max-width: 60ch;
+}
+
+.text-orange {
+  color: $color-orange;
+}
+
+.text-outline {
+  -webkit-text-stroke: 1px $color-white;
+  color: transparent;
+}
+
+.large-typography {
+  font-size: clamp(4rem, 15vw, 12rem);
+  line-height: 0.9;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.08);
+  position: absolute;
+  z-index: $z-index-negative;
+  white-space: nowrap;
+}
