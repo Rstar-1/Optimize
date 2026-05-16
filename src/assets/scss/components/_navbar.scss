@@ -1,0 +1,138 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 2rem 0;
+  z-index: $z-index-sticky;
+  transition: $transition-smooth;
+  background: transparent;
+  
+  &.scrolled {
+    padding: 1.2rem 0;
+    background: rgba($color-black, 0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: $color-white;
+    span {
+      color: $color-orange;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: $spacing-md;
+
+    @include respond-to("md") {
+      display: none;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: $color-gray-light;
+      
+      &:hover, &.active {
+        color: $color-white;
+      }
+
+      &.active::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: $color-orange;
+        margin-top: 4px;
+      }
+    }
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+  }
+
+  .btn-sm {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.75rem;
+
+    @include respond-to("sm") {
+      display: none;
+    }
+  }
+
+  .menu-trigger {
+    width: 30px;
+    height: 20px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    z-index: 101;
+
+    @include respond-to("md") {
+      display: flex;
+    }
+
+    span {
+      width: 100%;
+      height: 2px;
+      background: $color-white;
+      transition: $transition-fast;
+    }
+
+    &.active {
+      span:first-child { transform: translateY(9px) rotate(45deg); }
+      span:last-child { transform: translateY(-9px) rotate(-45deg); }
+    }
+  }
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  background: $color-black;
+  z-index: 100;
+  transform: translateX(100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .mobile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+
+    .mobile-link {
+      font-size: 3rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-family: $font-display;
+      color: $color-white;
+      
+      &:hover {
+        color: $color-orange;
+      }
+    }
+  }
+}

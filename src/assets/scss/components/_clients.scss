@@ -1,0 +1,41 @@
+.clients {
+  background: $color-black;
+  padding: $spacing-lg 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+
+  .marquee {
+    display: flex;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+
+    &-content {
+      display: flex;
+      animation: marquee 30s linear infinite;
+      
+      &:hover {
+        animation-play-state: paused;
+      }
+    }
+
+    .client-logo {
+      padding: 0 4rem;
+      font-size: 2rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.2);
+      font-family: $font-display;
+      letter-spacing: 0.2em;
+      transition: $transition-fast;
+      cursor: pointer;
+
+      &:hover {
+        color: $color-orange;
+      }
+    }
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

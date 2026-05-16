@@ -1,0 +1,28 @@
+.page-hero {
+  height: 50vh;
+  background: $color-graphite;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 100px;
+
+  h1 {
+    font-size: clamp(4rem, 10vw, 8rem);
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.25rem;
+    color: $color-orange;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+
+  .large-typography {
+    bottom: -10%;
+    right: -5%;
+    opacity: 0.05;
+  }
+}

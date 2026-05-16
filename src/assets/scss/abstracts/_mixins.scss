@@ -1,0 +1,51 @@
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin glassmorphism {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+}
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == "sm" {
+    @media (max-width: 640px) { @content; }
+  } @else if $breakpoint == "md" {
+    @media (max-width: 768px) { @content; }
+  } @else if $breakpoint == "lg" {
+    @media (max-width: 1024px) { @content; }
+  } @else if $breakpoint == "xl" {
+    @media (max-width: 1280px) { @content; }
+  }
+}
+
+@mixin section-padding {
+  padding: $spacing-xl 0;
+  @include respond-to("lg") {
+    padding: $spacing-lg 0;
+  }
+}
+
+@mixin text-reveal {
+  overflow: hidden;
+  .reveal-inner {
+    display: inline-block;
+  }
+}

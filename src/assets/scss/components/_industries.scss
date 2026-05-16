@@ -1,0 +1,131 @@
+.industries {
+  .section-header {
+    margin-bottom: $spacing-xl;
+    text-align: center;
+    
+    .section-title {
+      // max-width: 800px;
+      margin: 0 auto;
+    }
+  }
+
+  .industry-bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 400px);
+    gap: $spacing-md;
+
+    @include respond-to("lg") {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
+    }
+
+    @include respond-to("sm") {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .industry-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+
+    &.large {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    &.medium {
+      grid-column: span 2;
+    }
+
+    &-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: $transition-smooth;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: $transition-smooth;
+      }
+    }
+
+    .industry-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba($color-black, 0.9) 0%, transparent 100%);
+      transition: $transition-smooth;
+    }
+
+    .industry-info {
+      position: absolute;
+      bottom: 2rem;
+      left: 2rem;
+      z-index: 2;
+
+      h4 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .industry-link {
+        font-size: 0.875rem;
+        color: $color-orange;
+        font-weight: 600;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: $transition-smooth;
+      }
+    }
+
+    &:hover {
+      .industry-card-inner img {
+        transform: scale(1.1);
+      }
+
+      .industry-overlay {
+        background: linear-gradient(to top, rgba($color-orange, 0.4) 0%, transparent 100%);
+      }
+
+      .industry-link {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 1px solid $color-orange;
+        pointer-events: none;
+        z-index: 3;
+        animation: border-glow 2s infinite;
+      }
+    }
+  }
+
+  .large-typography {
+    bottom: 5%;
+    right: -5%;
+    opacity: 0.08;
+
+    @include respond-to("sm") {
+      font-size: 5rem;
+      right: -10%;
+    }
+  }
+}
+
+@keyframes border-glow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}

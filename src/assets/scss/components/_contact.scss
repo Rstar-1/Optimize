@@ -1,0 +1,95 @@
+.contact {
+  background: $color-black;
+  position: relative;
+
+  &-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-xl;
+    align-items: center;
+
+    @include respond-to("lg") {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .contact-info {
+    .section-title {
+      margin-bottom: $spacing-md;
+    }
+    p {
+      margin-bottom: $spacing-lg;
+    }
+  }
+
+  .contact-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+
+    .detail-item {
+      span {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: $color-orange;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+      }
+      p {
+        font-size: 1.1rem;
+        color: $color-white;
+        margin-top: 0.2rem;
+      }
+    }
+  }
+
+  .contact-form-container {
+    @include glassmorphism;
+    padding: $spacing-lg;
+    border-radius: 0;
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-md;
+
+      .form-group {
+        input, select, textarea {
+          width: 100%;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          padding: 1rem;
+          color: $color-white;
+          font-family: inherit;
+          transition: $transition-fast;
+
+          &:focus {
+            outline: none;
+            border-color: $color-orange;
+            background: rgba(255, 255, 255, 0.1);
+          }
+        }
+
+        select option {
+          background: $color-black;
+        }
+      }
+    }
+  }
+
+  .large-typography {
+    top: 50%;
+    right: -10%;
+    transform: translateY(-50%);
+    opacity: 0.08;
+
+    @include respond-to("sm") {
+      font-size: 5rem;
+      right: -20%;
+    }
+  }
+}
+
+.w-full {
+  width: 100%;
+}
